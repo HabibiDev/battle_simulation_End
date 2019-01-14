@@ -2,6 +2,7 @@ import logging
 
 
 def mylogger(session, logger_level):
+
     if logger_level == 'debug':
         logger1 = logging.getLogger('debug')
         logHandler = logging.FileHandler(session + "_debug.log")
@@ -11,10 +12,20 @@ def mylogger(session, logger_level):
         logger1 = logging.getLogger('info')
         logHandler = logging.FileHandler(session + "_Armies.log")
         formatter = logging.Formatter('%(levelname)s:%(message)s')
+    elif logger_level == 'error':
+        logger1 = logging.getLogger('error')
+        logHandler = logging.FileHandler(session + "_ERROR.log")
+        formatter = logging.Formatter(
+            '%(asctime)-15s:%(levelname)s:%(message)s')
+
     logHandler.setFormatter(formatter)
     logger1.addHandler(logHandler)
+
     if logger_level == 'debug':
         logger1.setLevel(logging.DEBUG)
     elif logger_level == 'info':
         logger1.setLevel(logging.INFO)
+    elif logger_level == 'error':
+        logger1.setLevel(logging.ERROR)
+
     return logger1
